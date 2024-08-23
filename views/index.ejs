@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque de Computadores</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #e9e9e9;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            width: calc(50% - 10px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .action-buttons button {
+            width: auto;
+            margin-left: 5px;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+
+        .edit-btn {
+            background-color: #007bff;
+        }
+
+        .edit-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Computadores em Estoque</h1>
+        <ul>
+            <% computadores.forEach(computador => { %>
+                <li>
+                    <span><%= computador.marca %> - <%= computador.modelo %> - <%= computador.especificacoes %> - <%= computador.status %> - <%= computador.data_aluguel %> - <%= computador.data_retorno %></span>
+                    <div class="action-buttons">
+                        <form action="/delete/<%= computador.id %>" method="POST" style="display:inline;">
+                            <button type="submit" class="delete-btn">Excluir</button>
+                        </form>
+                        <form action="/edit/<%= computador.id %>" method="GET" style="display:inline;">
+                            <button type="submit" class="edit-btn">Alterar</button>
+                        </form>
+                    </div>
+                </li>
+            <% }) %>
+        </ul>
+        <form action="/add" method="POST">
+            <input type="text" name="marca" placeholder="Marca" required>
+            <input type="text" name="modelo" placeholder="Modelo" required>
+            <input type="text" name="especificacoes" placeholder="Especificações" required>
+            <input type="text" name="status" placeholder="Status" required>
+            <label for="data_aluguel">Data de Aluguel:</label>
+            <input type="date" name="data_aluguel" required><br>
+            <label for="data_retorno">Data de Retorno:</label>
+            <input type="date" name="data_retorno" required><br>
+            <button type="submit">Adicionar Computador</button>
+        </form>
+    </div>
+</body>
+</html>
